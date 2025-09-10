@@ -1,10 +1,9 @@
 # MAPNet
+Contact: jraygoza@cicese.edu.mx
 
-**Fast Near‑Infrared Spectra Synthesizer with Neural Networks**
+**Magnetic-Atmospheric Parameters Neural Network**
 
-MAPNet is a family of neural‑network models that generate high‑resolution Stokes profiles (I, Q, U and V) from **5207.89 Å** to **5209.036 Å** wavelength.
-
-(all sampled every **0.012 Å**).
+MAPNet is a neural‑network model that generate high‑resolution Stokes profiles (I, Q, U and V) for **5208 Å, 5171 Å and MZS**.
 
 Given 13 magnetic and atmospheric parameters—phase, effective temperature, surface gravity, global metallicity, inclination angle, alpha, beta, gamma, y2, y3, dipolar moment, projected rotational velocity, and microturbulent velocity—the network outputs a synthetic flux vector with 96 wavelength points. Four model sizes let you trade accuracy for speed and memory.
 
@@ -33,14 +32,7 @@ The core library is light‑weight; the first time you instantiate a model, its 
 ---
 
 ## Model variants
-
-| Variant    | Parameters | Download size\* | Best suited for                |
-| ---------- | ---------- | --------------- | ------------------------------ |
-| **tiny**   | --------   | --------        | Edge devices & rapid scans     |
-| **small**  | --------   | --------        | Laptops / notebooks            |
-| **medium** | --------   | --------        | Workstations & small GPUs      |
-| **large**  | \~52 M     | ≈ 1.23 GB       | Maximum fidelity (server GPUs) |
-
+The model has 102M of parameters and the weights has a size of 1.23GB.
 \*Sizes are approximate .h5 files downloaded on demand.
 
 ---
@@ -269,7 +261,7 @@ inversion(
   fixed_incl: float | None = None, 
   fixed_alpha: float | None = None, 
   fixed_beta: float | None = None, 
-  fixed_gama: float | None = None, 
+  fixed_gamma: float | None = None, 
   fixed_y2: float | None = None, 
   fixed_y3: float | None = None, 
   fixed_m: float | None = None, 
@@ -318,17 +310,6 @@ You can:
 * `inv_spectra` (`np.ndarray`): Synthetic spectrum corresponding to the best solution.
 * `fitness` (`float`): Final error value of the best-fit solution.
 
-### Available model sizes
-
-The `model` argument can be one of:
-
-* `"tiny"` — fastest, lower accuracy
-* `"small"` — good trade-off
-* `"medium"` — higher accuracy, slower
-* `"large"` *(default)* — best accuracy, highest memory and compute cost
-
-Model weights are downloaded on first use and cached locally in `~/MAPNet_models/`.
-
 ---
 
 ## Troubleshooting
@@ -337,7 +318,6 @@ Model weights are downloaded on first use and cached locally in `~/MAPNet_models
 | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
 | *`ModuleNotFoundError: No module named 'gdown'`* | `pip install gdown`                                                                                                 |
 | Slow download / blocked                          | Download the `.h5` manually from the Google Drive link in `_MODEL_TABLE` and place it under `~/MAPNet_models/`. |
-| `ValueError: Model 'xyz' not exist.`             | Use one of the four valid model names.                                                                              |
 
 ---
 
@@ -352,5 +332,6 @@ Bug reports and feature requests are welcome on the *Issues* page.
 ---
 
 ## License
+
 
 MIT © 2025 Joan Raygoza
